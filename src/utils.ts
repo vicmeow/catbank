@@ -13,9 +13,10 @@ export function getAllBanks(): Bank[] {
         maxAge: bank.maks_alder,
         minAge: bank.min_alder,
         markedsomraade: bank.markedsomraade.toLowerCase(),
-        produktkrav: !!bank.trenger_ikke_pakke,
+        markedsomraade_tekst: bank.markedsomraadeTekst,
+        produktkrav: !bank.trenger_ikke_pakke,
         produktkrav_tekst: bank.produktpakke_tekst,
-        medlemskapskrav: bank.medlemskap === "",
+        medlemskapskrav: bank.medlemskap !== "",
         medlemskapskrav_tekst: bank.medlemskap_tekst,
         interestRate: bank.rentesats1
     })).filter(b => b.interestRate > 5)

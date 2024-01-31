@@ -10,6 +10,7 @@ export interface Bank {
     minAge: number
     interestRate: number
     markedsomraade: string
+    markedsomraade_tekst: string,
     produktkrav: boolean
     produktkrav_tekst?: string
     medlemskapskrav: boolean

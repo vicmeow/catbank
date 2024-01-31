@@ -21,7 +21,7 @@ export const Detail = ({ label, value, info }: { label: string, value: string | 
     return (
         <Tooltip
             content={
-                <Box padding={1}>
+                <Box padding={1} style={{ maxWidth: 300 }}>
                     <Text muted size={1}>
                         {info}
                     </Text>
