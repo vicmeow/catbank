@@ -1,5 +1,5 @@
 import { CreditCardIcon, IceCreamIcon, PinIcon, TrolleyIcon } from "@sanity/icons"
-import { Inline, Label } from "@sanity/ui"
+import { Text, Box, Inline, Label, Tooltip } from "@sanity/ui"
 
 const detailIcon = (detailType: string): React.ReactNode => {
     if (detailType) {
@@ -17,11 +17,28 @@ const detailIcon = (detailType: string): React.ReactNode => {
 
 }
 
-export const Detail = ({ label, value }: { label: string, value: string | boolean }) => {
+export const Detail = ({ label, value, info }: { label: string, value: string | boolean, info?: string }) => {
     return (
-        value && <Inline space={2}>
-            <Label size={4} aria-hidden>{detailIcon(label)}</Label>
-            <Label aria-label={label}>{value}</Label>
-        </Inline>
+        <Tooltip
+            content={
+                <Box padding={1}>
+                    <Text muted size={1}>
+                        {info}
+                    </Text>
+                </Box>
+            }
+            arrow
+            fallbackPlacements={['right', 'left']}
+            placement="top"
+            portal
+            disabled={!info}
+
+        >
+            <Inline space={2}>
+                <Label size={4} aria-hidden>{detailIcon(label)}</Label>
+                <Label aria-label={label}>{value}</Label>
+            </Inline>
+        </Tooltip>
+
     )
 }

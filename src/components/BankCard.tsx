@@ -14,7 +14,8 @@ const StyledCard = styled(Card)`
 
 export const BankCard = ({ name, product, url, interestRate, markedsomraade,
     produktkrav,
-    medlemskapskrav }: Bank) => {
+    produktkrav_tekst,
+    medlemskapskrav, medlemskapskrav_tekst }: Bank) => {
 
     // Get the current form values from our context
     const { userAge, userAmount = 0 } = useContext(SearchContext) || {}
@@ -41,9 +42,9 @@ export const BankCard = ({ name, product, url, interestRate, markedsomraade,
                     <Inline space={4}>
                         <Detail label="markedsområde" value={markedsomraade} />
                         {/* @TODO possibly add tooltip with info? */}
-                        {produktkrav && <Detail label="produktkrav" value="Produktkrav" />}
+                        {produktkrav && <Detail label="produktkrav" value="Produktkrav" info={produktkrav_tekst} />}
                         {/* @TODO possibly add tooltip with info? */}
-                        {medlemskapskrav && <Detail label="medlemskapskrav" value="Medlemskapskrav" />}
+                        {medlemskapskrav && <Detail label="medlemskapskrav" value="Medlemskapskrav" info={medlemskapskrav_tekst} />}
                     </Inline>
                 </Stack>
 

@@ -14,16 +14,16 @@ export function getAllBanks(): Bank[] {
         minAge: bank.min_alder,
         markedsomraade: bank.markedsomraade.toLowerCase(),
         produktkrav: !!bank.trenger_ikke_pakke,
+        produktkrav_tekst: bank.produktpakke_tekst,
         medlemskapskrav: bank.medlemskap === "",
+        medlemskapskrav_tekst: bank.medlemskap_tekst,
         interestRate: bank.rentesats1
     })).filter(b => b.interestRate > 5)
 }
 
 export function getFilteredBanks(banks: Bank[], filters: { userAge: number, marketArea: string, userBank: string | null }): Bank[] {
-    console.log(filters)
     // Filter the banks based on the current criterias
     const filteredBanks = banks.filter(bank => {
-        console.log(filters)
         // Check if the user's age is within the bank's defined min and max age
         const isWithinAgeRange = bank.minAge <= filters.userAge && filters.userAge <= bank.maxAge
         // Check if the bank is only local or not
@@ -32,7 +32,7 @@ export function getFilteredBanks(banks: Bank[], filters: { userAge: number, mark
         const isUserBank = !filters.userBank || bank.name === filters.userBank
         return isWithinAgeRange && isChosenMarketArea && isUserBank
     })
-    // We sort the banks with the best interest rates
+    // We sort the banks with the best interest rates first
     const sortedBanks = filteredBanks.sort((a, b) => b.interestRate - a.interestRate)
     return sortedBanks
 }
