@@ -13,7 +13,7 @@ const radioOptions = [
 
 export const SearchForm = () => {
 
-    const { setUserAge, setUserAmount } = useContext(SearchContext) || {}
+    const { setUserAge, setUserAmount, setMarketArea, marketArea } = useContext(SearchContext) || {}
 
 
     const onAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,15 +28,20 @@ export const SearchForm = () => {
         }
     }
 
+    const onMarketChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (setMarketArea) {
+            setMarketArea(String(e.target.value))
+        }
+    }
+
     return <Grid gap={4} columns={[1, 2]}>
-        <InputField label="Alder" inputType="number" handleChange={onAgeChange} icon={NumberIcon} />
-        <InputField label="Innestående beløp" inputType="number" handleChange={onAmountChange} icon={NumberIcon} />
+        <InputField label="Alder" description="Er du blitt gammel enda?" inputType="number" onChange={onAgeChange} icon={NumberIcon} />
+        <InputField label="Innestående beløp" description="Har du vært flink og spart penger?" inputType="number" onChange={onAmountChange} icon={NumberIcon} />
         <Box columnStart={1} columnEnd={3}>
             <BankSearchField />
         </Box>
         <Box columnStart={1} columnEnd={3}>
-            <RadioField label="Markedsområde" options={radioOptions} />
+            <RadioField label="Markedsområde" group="market" options={radioOptions} onChange={onMarketChange} selectedOption={marketArea} />
         </Box>
-
     </Grid>
 }
