@@ -1,14 +1,23 @@
 import { Flex, Inline, Label, Radio, Stack, Text } from "@sanity/ui"
-import { useContext } from "react"
-import { SearchContext } from "../../App"
+
+type RadioOption = {
+    value: string
+    label: string
+}
+interface RadioField {
+    label: string
+    options: RadioOption[]
+    onChange: React.FormEventHandler
+    group: string
+    selectedOption?: string
+}
 
 
-export const RadioField = ({ label, options }: { label: string, options: { value: string, label: string }[] }) => {
-    const { marketArea, setMarketArea } = useContext(SearchContext) || {}
+export const RadioField = ({ label, options, onChange, group, selectedOption }: RadioField) => {
 
-    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-        if (setMarketArea) {
-            setMarketArea((e.target as HTMLInputElement).value)
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(e)
         }
     }
 
@@ -17,7 +26,7 @@ export const RadioField = ({ label, options }: { label: string, options: { value
         <Flex justify="space-between">
             {options.map(o =>
                 <Inline space={2} key={o.value} >
-                    <Radio name="marketarea" value={o.value} checked={o.value === marketArea} onChange={handleChange} />
+                    <Radio name={group} value={o.value} checked={o.value === selectedOption} onChange={handleChange} />
                     <Text>{o.label}</Text>
                 </Inline>)
             }
